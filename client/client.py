@@ -2,7 +2,6 @@ import socket
 import json
 
 def udp_echo_client(server_host='localhost', server_port=7000):
-    # Создаем UDP сокет
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     server_address = (server_host, server_port)
