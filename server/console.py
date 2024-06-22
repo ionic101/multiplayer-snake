@@ -1,6 +1,7 @@
 from server import Server
 from typing import Optional, Iterable
 
+
 class Console:
     def __init__(self) -> None:
         self._server: Server = Server()

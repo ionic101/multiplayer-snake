@@ -3,6 +3,7 @@ import threading
 from typing import Optional
 import json
 
+
 class Player:
     def __init__(self, address: tuple[str, int]):
         self.address = address
