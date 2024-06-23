@@ -18,7 +18,6 @@ class MenuController(Controller):
         if not isinstance(self._scene, MenuScene):
             return
         
-        for button in self._scene.buttons:
-            button.click(pygame.mouse.get_pos())
-
-        
+        if pygame.mouse.get_pressed()[0]:
+            for button in self._scene.buttons:
+                button.click(pygame.mouse.get_pos())

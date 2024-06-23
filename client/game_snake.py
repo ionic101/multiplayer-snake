@@ -1,7 +1,5 @@
 import pygame
 import settings
-from view.viewers.game_viewer import GameViewer
-from model.source.game_session_data import GameSessionData
 from model.source.scene import Scene
 from model.scenes.menu_scene import MenuScene
 from controller.controllers.menu_controller import MenuController, Controller
@@ -16,7 +14,7 @@ class GameSnake:
         self.screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
 
-        self.game_scene: Scene = MenuScene()
+        self.game_scene: Scene = MenuScene(self.stop)
         self.game_controller: Controller = MenuController(self.game_scene, stop_game_action=self.stop)
         self.game_viewer: Viewer = MenuViewer(self.screen, self.game_scene)
 
