@@ -1,5 +1,5 @@
 from server import Server
-from typing import Optional, Iterable
+from typing import Optional
 
 
 class Console:

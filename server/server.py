@@ -32,6 +32,7 @@ class Server:
             self._players[address] = player
 
 
+    #TODO
     def __listen(self) -> None:
         while self.is_run():
             try:
@@ -46,7 +47,8 @@ class Server:
 
 
     def stop(self) -> None:
-        self._socket.close()
+        if self._socket is not None:
+            self._socket.close()
         self._socket = None
 
 

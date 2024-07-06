@@ -1,27 +1,25 @@
 import pygame
-from view.viewer import Viewer
-from model.source.scene import Scene
-from model.scenes.menu_scene import MenuScene
-from model.source.colors import Colors
-import settings
-from model.classes.button_actor import ButtonActor
-import os
+from game_engine.viewer import Viewer
+from game_engine.scene import Scene
+from scenes.menu_scene import MenuScene
+from game_engine.colors import Colors
+import game_settings as game_settings
+from classes.button_actor import ButtonActor
 
 
 class MenuViewer(Viewer):
     def __init__(self, screen: pygame.Surface, scene: Scene) -> None:
-        super().__init__(screen)
-        self._scene = scene
+        super().__init__(screen, scene)
         self._BACKGROUND_COLOR: pygame.Color = Colors.BLACK
-        self._button_font = pygame.font.Font('C:\\Users\\User\\Documents\\git\\online-game\\client\\content\\fonts\\8bit.otf', 20)
-        self._title_font = pygame.font.Font('C:\\Users\\User\\Documents\\git\\online-game\\client\\content\\fonts\\8bit.otf', 60)
+        self._button_font = pygame.font.Font(game_settings.FONT_PATH, 20)
+        self._title_font = pygame.font.Font(game_settings.FONT_PATH, 60)
 
         self._FIELD_MARGIN = 30
         self._FIELD_RECT = pygame.Rect(
             self._FIELD_MARGIN,
             self._FIELD_MARGIN,
-            settings.SCREEN_WIDTH - self._FIELD_MARGIN * 2,
-            settings.SCREEN_HEIGHT - self._FIELD_MARGIN * 2
+            game_settings.SCREEN_WIDTH - self._FIELD_MARGIN * 2,
+            game_settings.SCREEN_HEIGHT - self._FIELD_MARGIN * 2
         )
 
 
@@ -33,13 +31,13 @@ class MenuViewer(Viewer):
     
 
     def __display_title(self) -> None:
-        title: pygame.Surface = self._title_font.render(settings.GAME_NAME, True, Colors.WHITE)
+        title: pygame.Surface = self._title_font.render(game_settings.GAME_NAME, True, Colors.WHITE)
 
         title_width: int
         title_height: int
         title_width, title_height = title.get_rect().size
 
-        title_coord = (settings.SCREEN_WIDTH // 2 - title_width // 2, settings.SCREEN_HEIGHT // 4 - title_height // 2)
+        title_coord = (game_settings.SCREEN_WIDTH // 2 - title_width // 2, game_settings.SCREEN_HEIGHT // 4 - title_height // 2)
 
         self._screen.blit(title, title_coord)
     

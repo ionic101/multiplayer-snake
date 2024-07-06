@@ -1,24 +1,23 @@
-from model.source.scene import Scene
-from model.classes.button_actor import ButtonActor
-from typing import List, Tuple
+from game_engine.scene import Scene
+from typing import List
 import pygame
-from model.source.colors import Colors
-import settings
-from typing import Callable
+import game_settings as game_settings
+from classes.button_actor import ButtonActor
+from game_engine.game_engine import GameEngine
+
 
 
 class MenuScene(Scene):
-    def __init__(self, stop_game_action: Callable) -> None:
+    def __init__(self) -> None:
         self._BUTTON_WIDTH: int = 300
         self._BUTTON_HEIGHT: int = 70
         self._BUTTOM_INTERVAL: int = 100
 
-
         self.buttons: List[ButtonActor] = [
             ButtonActor(
                 rect=pygame.Rect(
-                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2,
+                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
@@ -27,8 +26,8 @@ class MenuScene(Scene):
             ),
             ButtonActor(
                 rect=pygame.Rect(
-                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL,
+                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
@@ -37,12 +36,12 @@ class MenuScene(Scene):
             ),
             ButtonActor(
                 rect=pygame.Rect(
-                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL * 2,
+                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL * 2,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
-                callback=stop_game_action
+                callback=GameEngine.quit
             ),
         ]
