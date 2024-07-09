@@ -4,7 +4,9 @@ import pygame
 import game_settings as game_settings
 from classes.button_actor import ButtonActor
 from game_engine.game_engine import GameEngine
-
+from scenes.singleplayer_scene import SingleplayerScene
+from viewers.singleplayer_viewer import SingleplayerViewer
+from controllers.singleplayer_controller import SingleplayerController
 
 
 class MenuScene(Scene):
@@ -22,7 +24,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='singleplayer',
-                callback=lambda: print('singleplayer')
+                callback=self.switch_on_level
             ),
             ButtonActor(
                 rect=pygame.Rect(
@@ -42,6 +44,12 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
-                callback=GameEngine.quit
+                callback=GameEngine.stop_forced
             ),
         ]
+
+    def switch_on_level(self) -> None:
+        GameEngine.set_session_forced(SingleplayerScene, SingleplayerViewer, SingleplayerController)
+    
+    def update(self, dt: float) -> None:
+        pass

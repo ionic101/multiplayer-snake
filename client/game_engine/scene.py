@@ -1,5 +1,7 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Scene(ABC):
-    pass
+    @abstractmethod
+    def update(self, dt: float) -> None:
+        pass

@@ -6,4 +6,4 @@ from viewers.menu_viewer import MenuViewer
 
 if __name__ == '__main__':
     game = GameEngine(MenuViewer, MenuScene, MenuController)
-    game.run() # type: ignore
+    game.run()

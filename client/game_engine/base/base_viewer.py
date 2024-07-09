@@ -4,9 +4,8 @@ from game_engine.viewer import Viewer
 
 
 class BaseViewer(Viewer):
-    def __init__(self, screen: pygame.Surface, scene: Scene) -> None:
-        super().__init__(screen, scene)
-    
+    def __init__(self, scene: Scene) -> None:
+        super().__init__(scene)
 
-    def display(self) -> None:
+    def display(self, screen: pygame.Surface) -> None:
         pass
