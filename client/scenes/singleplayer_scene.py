@@ -11,6 +11,6 @@ class SingleplayerScene(Scene):
     
     def update(self, dt: float) -> None:
         self.move_time += dt
-        if self.move_time >= 0.5:
+        if self.move_time >= 0.2:
             self.snake.move()
             self.move_time = 0.0

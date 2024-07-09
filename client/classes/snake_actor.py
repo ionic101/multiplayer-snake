@@ -20,4 +20,3 @@ class SnakeActor(Actor):
     
     def set_direction(self, new_direction: Vector2) -> None:
         self.direction = new_direction
-        print(self.direction)

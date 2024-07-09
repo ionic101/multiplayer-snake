@@ -5,6 +5,7 @@ from scenes.menu_scene import MenuScene
 from game_engine.colors import Colors
 import game_settings as game_settings
 from classes.button_actor import ButtonActor
+from viewers.field_viewer import FieldViewer
 
 
 class MenuViewer(Viewer):
@@ -21,12 +22,6 @@ class MenuViewer(Viewer):
             game_settings.SCREEN_WIDTH - self._FIELD_MARGIN * 2,
             game_settings.SCREEN_HEIGHT - self._FIELD_MARGIN * 2
         )
-
-    def __display_field(self, screen: pygame.Surface) -> None:
-        pygame.draw.rect(screen,
-                         Colors.WHITE,
-                         self._FIELD_RECT,
-                         width=5)
 
     def __display_title(self, screen: pygame.Surface) -> None:
         title: pygame.Surface = self._title_font.render(game_settings.GAME_NAME, True, Colors.WHITE)
@@ -53,7 +48,7 @@ class MenuViewer(Viewer):
     
     def display(self, screen: pygame.Surface) -> None:
         screen.fill(self._BACKGROUND_COLOR)
-        self.__display_field(screen)
+        FieldViewer.display(screen)
         self.__display_title(screen)
 
         if not isinstance(self._scene, MenuScene):

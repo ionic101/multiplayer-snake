@@ -4,6 +4,7 @@ from game_engine.scene import Scene
 from game_engine.colors import Colors
 from scenes.singleplayer_scene import SingleplayerScene
 import game_settings as settings
+from viewers.field_viewer import FieldViewer
 
 
 class SingleplayerViewer(Viewer):
@@ -16,7 +17,7 @@ class SingleplayerViewer(Viewer):
         
         for cell in self._scene.snake.body:
             pygame.draw.rect(screen,
-                             Colors.RED,
+                             Colors.WHITE,
                              pygame.Rect(cell.x * settings.CELL_WIDTH,
                                         cell.y * settings.CELL_WIDTH,
                                         settings.CELL_WIDTH,
@@ -24,4 +25,5 @@ class SingleplayerViewer(Viewer):
     
     def display(self, screen: pygame.Surface) -> None:
         screen.fill(Colors.BLACK)
+        FieldViewer.display(screen)
         self.__snake_display(screen)
