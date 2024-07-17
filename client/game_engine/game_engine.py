@@ -1,5 +1,5 @@
 import pygame
-import game_settings as game_settings
+import game_settings as settings
 from typing import Optional, Type
 from game_engine.session import Session
 from game_engine.viewer import Viewer
@@ -23,8 +23,8 @@ class GameEngine():
         if self._initialized:
             return
         pygame.init()
-        pygame.display.set_caption(game_settings.GAME_NAME)
-        self._screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
+        pygame.display.set_caption(settings.GAME_NAME)
+        self._screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         self._clock = pygame.time.Clock()
         scene = scene_type()
         viewer = viewer_type(scene)
@@ -46,7 +46,7 @@ class GameEngine():
         pygame.init()
         self.is_run = True
         while self.is_run:
-            dt: float = self._clock.tick(game_settings.MAX_FPS) / 1000
+            dt: float = self._clock.tick(settings.MAX_FPS) / 1000
             self.update(dt)
         pygame.quit()
 

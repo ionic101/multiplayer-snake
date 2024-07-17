@@ -1,5 +1,4 @@
 import os
-from pygame.math import Vector2
 
 
 SCREEN_WIDTH = 1280
@@ -10,4 +9,3 @@ BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 FONT_PATH = os.path.join(BASE_PATH, 'content', 'fonts', '8bit.otf')
 
 CELL_WIDTH = 20
-SNAKE_START_COORD = Vector2(5, 5)

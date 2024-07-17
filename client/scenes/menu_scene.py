@@ -1,7 +1,7 @@
 from game_engine.scene import Scene
 from typing import List
 import pygame
-import game_settings as game_settings
+import game_settings as settings
 from classes.button_actor import ButtonActor
 from game_engine.game_engine import GameEngine
 from scenes.singleplayer_scene import SingleplayerScene
@@ -18,8 +18,8 @@ class MenuScene(Scene):
         self.buttons: List[ButtonActor] = [
             ButtonActor(
                 rect=pygame.Rect(
-                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2,
+                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
@@ -28,8 +28,8 @@ class MenuScene(Scene):
             ),
             ButtonActor(
                 rect=pygame.Rect(
-                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL,
+                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
@@ -38,8 +38,8 @@ class MenuScene(Scene):
             ),
             ButtonActor(
                 rect=pygame.Rect(
-                    game_settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
-                    game_settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL * 2,
+                    settings.SCREEN_WIDTH // 2 - self._BUTTON_WIDTH // 2,
+                    settings.SCREEN_HEIGHT // 2 - self._BUTTON_HEIGHT // 2 + self._BUTTOM_INTERVAL * 2,
                     self._BUTTON_WIDTH,
                     self._BUTTON_HEIGHT
                 ),
