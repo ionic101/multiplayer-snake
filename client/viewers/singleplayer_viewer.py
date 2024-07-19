@@ -41,7 +41,7 @@ class SingleplayerViewer(Viewer):
                              pygame.Rect(cell.x * settings.CELL_WIDTH,
                                         cell.y * settings.CELL_WIDTH,
                                         settings.CELL_WIDTH,
-                                        settings.CELL_WIDTH), 3)
+                                        settings.CELL_WIDTH))
     
     def __display_button(self, screen: pygame.Surface, button: ButtonActor) -> None:
         pygame.draw.rect(screen, Colors.WHITE.value, button.rect, width=5)
