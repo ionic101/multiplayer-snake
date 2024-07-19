@@ -10,7 +10,7 @@ from game_engine.game_engine import GameEngine
 import scenes.menu_scene as menu_scene
 import viewers.menu_viewer as menu_viewer
 import controllers.menu_controller as menu_controller
-from os import path
+import os
 import pickle
 
 
@@ -26,7 +26,7 @@ class SingleplayerScene(Scene):
         self.snake: SnakeActor = SnakeActor(Vector2(20, 20))
         self.apples: List[Vector2] = []
         self.move_time: float = 0.0
-        self.record: int = 0
+        self.record: int = len(self.snake.body)
         self.COUNT_APPLES: int = 5
         self.MOVE_TIME: float = 0.2
         self.FIELD_START_COORD: Vector2 = Vector2(2, 2)
@@ -146,7 +146,7 @@ class SingleplayerScene(Scene):
         self.snake.move()
     
     def start(self) -> None:
-        if path.exists(settings.RECORD_PATH):
+        if os.path.exists(settings.RECORD_PATH):
             with open(settings.RECORD_PATH, 'rb') as file:
                 self.record = pickle.load(file)
         self.game_status = GameStatus.PLAY
@@ -164,6 +164,11 @@ class SingleplayerScene(Scene):
         self.snake.die()
         self.game_status = GameStatus.END
         self.record = max(self.score, self.record)
+
+        data_dir = os.path.dirname(settings.RECORD_PATH)
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
+        
         with open(settings.RECORD_PATH, 'wb') as file:
             pickle.dump(self.record, file)
     
