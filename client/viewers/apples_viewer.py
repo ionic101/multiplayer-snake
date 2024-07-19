@@ -10,7 +10,7 @@ class ApplesViewer:
     def display(screen: pygame.Surface, apples: List[Vector2]) -> None:
         for apple in apples:
             pygame.draw.rect(screen,
-                             Colors.RED,
+                             Colors.RED.value,
                              pygame.Rect(apple.x * settings.CELL_WIDTH,
                                         apple.y * settings.CELL_WIDTH,
                                         settings.CELL_WIDTH,

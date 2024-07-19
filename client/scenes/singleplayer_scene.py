@@ -15,9 +15,9 @@ import pickle
 
 
 class GameStatus:
-    PLAY = 0
-    PAUSE = 1
-    START = 2
+    START = 0
+    PLAY = 1
+    PAUSE = 2
     END = 3
 
 
@@ -134,7 +134,7 @@ class SingleplayerScene(Scene):
                 self.spawn_apple()
     
     def update_snake(self) -> None:
-        new_snake_coord: Vector2 = self.snake.coord + self.snake.direction
+        new_snake_coord: Vector2 = self.snake.coord + self.snake.direction.value
         
         if new_snake_coord in self.snake.body or new_snake_coord.x < self.FIELD_START_COORD.x\
             or new_snake_coord.x > self.FIELD_END_COORD.x or new_snake_coord.y < self.FIELD_START_COORD.y\

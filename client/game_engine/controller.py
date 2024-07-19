@@ -3,12 +3,13 @@ from game_engine.scene import Scene
 import pygame
 import game_engine.game_engine as game_engine
 from typing import List
+from enum import IntEnum
 
 
-class MouseButton:
-    LEFT: int = 1
-    MIDDLE: int = 2
-    RIGHT: int = 3
+class MouseButton(IntEnum):
+    LEFT = 1
+    MIDDLE = 2
+    RIGHT = 3
 
 
 class Controller(ABC):

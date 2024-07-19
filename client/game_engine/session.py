@@ -20,15 +20,15 @@ class Session():
     def control(self, events: List[pygame.event.Event]) -> None:
         self._controller.control(events)
 
-    def set_viewer(self, viewer_type: Type[Viewer]):
+    def set_viewer(self, viewer_type: Type[Viewer]) -> None:
         assert issubclass(viewer_type, Viewer), Exception('In argument must be type of viewer')
         self._viewer = viewer_type(self._scene)
 
-    def set_controller(self, controller_type: Type[Controller]):
+    def set_controller(self, controller_type: Type[Controller]) -> None:
         assert issubclass(controller_type, Controller), Exception('In argument must be type of controller')
         self._controller = controller_type(self._scene)
 
-    def set_scene(self, scene_type: Type[Scene]):
+    def set_scene(self, scene_type: Type[Scene]) -> None:
         assert issubclass(scene_type, Scene), Exception('In argument must be type of scene')
         self._scene = scene_type()
         self._viewer.set_scene(self._scene)

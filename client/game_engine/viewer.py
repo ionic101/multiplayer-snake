@@ -4,7 +4,7 @@ from game_engine.scene import Scene
 
 
 class Viewer(ABC):
-    def __init__(self, scene: Scene):
+    def __init__(self, scene: Scene) -> None:
         self._scene: Scene = scene
     
     def set_scene(self, new_scene: Scene) -> None:

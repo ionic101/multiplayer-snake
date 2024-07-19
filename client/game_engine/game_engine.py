@@ -19,7 +19,8 @@ class GameEngine():
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, viewer_type: Type[Viewer] = BaseViewer, scene_type: Type[Scene] = BaseScene, controller_type: Type[Controller] = BaseController) -> None:
+    def __init__(self, viewer_type: Type[Viewer] = BaseViewer, scene_type: Type[Scene] = BaseScene,
+                 controller_type: Type[Controller] = BaseController) -> None:
         if self._initialized:
             return
         pygame.init()
@@ -50,7 +51,8 @@ class GameEngine():
             self.update(dt)
         pygame.quit()
 
-    def set_session(self, scene_type: Type[Scene] = BaseScene, viewer_type: Type[Viewer] = BaseViewer, controller_type: Type[Controller] = BaseController) -> None:
+    def set_session(self, scene_type: Type[Scene] = BaseScene, viewer_type: Type[Viewer] = BaseViewer,
+                    controller_type: Type[Controller] = BaseController) -> None:
         self._session.set_scene(scene_type)
         self._session.set_viewer(viewer_type)
         self._session.set_controller(controller_type)
@@ -60,5 +62,6 @@ class GameEngine():
         GameEngine().stop()
 
     @staticmethod
-    def set_session_forced(scene_type: Type[Scene] = BaseScene, viewer_type: Type[Viewer] = BaseViewer, controller_type: Type[Controller] = BaseController) -> None:
+    def set_session_forced(scene_type: Type[Scene] = BaseScene, viewer_type: Type[Viewer] = BaseViewer,
+                           controller_type: Type[Controller] = BaseController) -> None:
         GameEngine().set_session(scene_type, viewer_type, controller_type)

@@ -1,7 +1,8 @@
 import pygame
+from enum import Enum
 
 
-class Colors:
+class Colors(Enum):
     BLACK = pygame.Color(0, 0, 0)
     WHITE = pygame.Color(255, 255, 255)
     RED = pygame.Color(255, 0, 0)

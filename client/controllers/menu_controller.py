@@ -18,9 +18,9 @@ class MenuController(Controller):
             return
         
         for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == MouseButton.LEFT:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == MouseButton.LEFT.value:
                 self.start_click = event.pos
-            elif event.type == pygame.MOUSEBUTTONUP and event.button == MouseButton.LEFT:
+            elif event.type == pygame.MOUSEBUTTONUP and event.button == MouseButton.LEFT.value:
                 self.end_click = event.pos
                 for button in self._scene.buttons:
                     if button.rect.collidepoint(self.start_click) and button.rect.collidepoint(self.end_click):

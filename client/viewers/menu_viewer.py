@@ -10,7 +10,7 @@ from classes.button_actor import ButtonActor
 class MenuViewer(Viewer):
     def __init__(self, scene: Scene) -> None:
         super().__init__(scene)
-        self._BACKGROUND_COLOR: pygame.Color = Colors.BLACK
+        self._BACKGROUND_COLOR: pygame.Color = Colors.BLACK.value
         self._button_font = pygame.font.Font(settings.FONT_PATH, 20)
         self._title_font = pygame.font.Font(settings.FONT_PATH, 60)
 
@@ -24,12 +24,12 @@ class MenuViewer(Viewer):
     
     def __display_field(self, screen: pygame.Surface) -> None:
         pygame.draw.rect(screen,
-                         Colors.WHITE,
+                         Colors.WHITE.value,
                          self._FIELD_RECT,
                          width=5)
 
     def __display_title(self, screen: pygame.Surface) -> None:
-        title: pygame.Surface = self._title_font.render(settings.GAME_NAME, True, Colors.WHITE)
+        title: pygame.Surface = self._title_font.render(settings.GAME_NAME, True, Colors.WHITE.value)
 
         title_width: int
         title_height: int
@@ -40,8 +40,8 @@ class MenuViewer(Viewer):
         screen.blit(title, title_coord)
 
     def __display_button(self, screen: pygame.Surface, button: ButtonActor) -> None:
-        pygame.draw.rect(screen, Colors.WHITE, button.rect, width=5)
-        text: pygame.Surface = self._button_font.render(button.text, True, Colors.WHITE)
+        pygame.draw.rect(screen, Colors.WHITE.value, button.rect, width=5)
+        text: pygame.Surface = self._button_font.render(button.text, True, Colors.WHITE.value)
 
         text_width: int
         text_height: int
