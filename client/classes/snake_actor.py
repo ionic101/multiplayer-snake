@@ -41,3 +41,4 @@ class SnakeActor(Actor):
     
     def die(self):
         self.is_live = False
+        

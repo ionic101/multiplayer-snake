@@ -1,5 +1,5 @@
 from game_engine.actor import Actor
-from typing import Tuple, Callable, Any
+from typing import Callable, Any
 import pygame
 from pygame.math import Vector2
 
@@ -12,8 +12,6 @@ class ButtonActor(Actor):
         self.rect: pygame.Rect = rect
         self.text: str = text
         self.callback: Callable[..., Any] = callback
-    
 
-    def click(self, cursor_pos: Tuple[int, int]):
-        if self.rect.collidepoint(cursor_pos):
-            self.callback()
+    def click(self):
+        self.callback()

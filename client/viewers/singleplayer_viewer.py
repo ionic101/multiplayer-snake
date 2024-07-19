@@ -2,20 +2,36 @@ import pygame
 from game_engine.viewer import Viewer
 from game_engine.scene import Scene
 from game_engine.colors import Colors
-from scenes.singleplayer_scene import SingleplayerScene
+from scenes.singleplayer_scene import SingleplayerScene, GameStatus
 import game_settings as settings
-from viewers.field_viewer import FieldViewer
 from viewers.apples_viewer import ApplesViewer
-from scenes.singleplayer_scene import GameStatus
 from classes.button_actor import ButtonActor
 
 
 class SingleplayerViewer(Viewer):
     def __init__(self, scene: Scene) -> None:
         super().__init__(scene)
-        self._button_font = pygame.font.Font(settings.FONT_PATH, 20)
+        self._button_font: pygame.font.Font = pygame.font.Font(settings.FONT_PATH, 20)
+        self._status_font: pygame.font.Font = pygame.font.Font(settings.FONT_PATH, 30)
+        self._game_over_font: pygame.font.Font = pygame.font.Font(settings.FONT_PATH, 50)
+
+        self._STATUS_RIGHT_MARGIN: int = 100
+        self._STATUS_LEFT_MARGIN: int = 225 + self._STATUS_RIGHT_MARGIN
+        self._FIELD_MARGIN = 35
+        self._FIELD_RECT = pygame.Rect(
+                self._FIELD_MARGIN,
+                self._FIELD_MARGIN,
+                settings.SCREEN_WIDTH - self._FIELD_MARGIN * 2,
+                settings.SCREEN_HEIGHT - settings.CELL_WIDTH * 4 - self._FIELD_MARGIN * 2
+            )
     
-    def __snake_display(self, screen: pygame.Surface) -> None:
+    def __display_field(self, screen: pygame.Surface) -> None:
+        pygame.draw.rect(screen,
+                         Colors.WHITE,
+                         self._FIELD_RECT,
+                         width=5)
+    
+    def __display_snake(self, screen: pygame.Surface) -> None:
         if not isinstance(self._scene, SingleplayerScene):
             return
         
@@ -38,18 +54,52 @@ class SingleplayerViewer(Viewer):
         text_coord = (button.coord.x + (button.width - text_width) // 2,
                       button.coord.y + (button.height - text_height) // 2)
         screen.blit(text, text_coord)
-
+    
+    def __display_score(self, screen: pygame.Surface) -> None:
+        if not isinstance(self._scene, SingleplayerScene):
+            return
+        
+        score: pygame.Surface = self._status_font.render(f'score {self._scene.score}', True, Colors.WHITE)
+        score_coord = (settings.SCREEN_WIDTH // 2 - self._STATUS_LEFT_MARGIN, 640)
+        screen.blit(score, score_coord)
+    
+    def __display_record(self, screen: pygame.Surface) -> None:
+        if not isinstance(self._scene, SingleplayerScene):
+            return
+        
+        score: pygame.Surface = self._status_font.render(f'record {self._scene.record}', True, Colors.WHITE)
+        score_coord = (settings.SCREEN_WIDTH // 2 + self._STATUS_RIGHT_MARGIN, 640)
+        screen.blit(score, score_coord)
+    
+    def __display_game_over(self, screen: pygame.Surface) -> None:
+        text: pygame.Surface = self._game_over_font.render(f'GAME OVER', True, Colors.WHITE)
+        text_width: int = text.get_rect().width
+        text_coord = (settings.SCREEN_WIDTH // 2 - text_width // 2, 200)
+        screen.blit(text, text_coord)
+    
+    def __display_pause(self, screen: pygame.Surface) -> None:
+        text: pygame.Surface = self._game_over_font.render(f'PAUSE', True, Colors.WHITE)
+        text_width: int = text.get_rect().width
+        text_coord = (settings.SCREEN_WIDTH // 2 - text_width // 2, 200)
+        screen.blit(text, text_coord)
     
     def display(self, screen: pygame.Surface) -> None:
         screen.fill(Colors.BLACK)
-        FieldViewer.display(screen)
+        self.__display_field(screen)
 
         if not isinstance(self._scene, SingleplayerScene):
             return
+        
+        self.__display_score(screen)
+        self.__display_record(screen)
 
-        self.__snake_display(screen)
+        self.__display_snake(screen)
         ApplesViewer.display(screen, self._scene.apples)
 
-        if self._scene.game_status == GameStatus.PAUSE:
-            for button in self._scene.buttons:
-                self.__display_button(screen, button)
+        for button in self._scene.buttons:
+            self.__display_button(screen, button)
+
+        if self._scene.game_status == GameStatus.END:
+            self.__display_game_over(screen)
+        elif self._scene.game_status == GameStatus.PAUSE:
+            self.__display_pause(screen)
