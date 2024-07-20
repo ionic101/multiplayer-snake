@@ -7,10 +7,15 @@ from game_engine.game_engine import GameEngine
 from scenes.singleplayer_scene import SingleplayerScene
 from viewers.singleplayer_viewer import SingleplayerViewer
 from controllers.singleplayer_controller import SingleplayerController
+from scenes.multiplayer_scene import MultiplayerScene
+from viewers.multiplayer_viewer import MultiplayerViewer
+from controllers.multiplayer_controller import MultiplayerController
+
 
 
 class MenuScene(Scene):
     def __init__(self) -> None:
+        super().__init__()
         self._BUTTON_WIDTH: int = 300
         self._BUTTON_HEIGHT: int = 70
         self._BUTTOM_INTERVAL: int = 100
@@ -24,7 +29,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='singleplayer',
-                callback=self.switch_on_level
+                callback=self.play_singleplayer
             ),
             ButtonActor(
                 rect=pygame.Rect(
@@ -34,7 +39,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='multiplayer',
-                callback=lambda: print('multiplayer')
+                callback=self.play_multiplayer
             ),
             ButtonActor(
                 rect=pygame.Rect(
@@ -48,8 +53,11 @@ class MenuScene(Scene):
             ),
         ]
 
-    def switch_on_level(self) -> None:
+    def play_singleplayer(self) -> None:
         GameEngine.set_session_forced(SingleplayerScene, SingleplayerViewer, SingleplayerController)
+    
+    def play_multiplayer(self) -> None:
+        GameEngine.set_session_forced(MultiplayerScene, MultiplayerViewer, MultiplayerController)
     
     def update(self, dt: float) -> None:
         pass

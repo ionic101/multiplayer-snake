@@ -1,11 +1,12 @@
-from server import Server
+from game_server import GameServer
 from typing import Optional
+from typing import Callable, List
 
 
 class Console:
     def __init__(self) -> None:
-        self._server: Server = Server()
-        self._COMMANDS: dict[str, function] = {
+        self._server: GameServer = GameServer()
+        self._COMMANDS: dict[str, Callable[..., None]] = {
             'help': self.help,
             'quit': self.exit,
             'exit': self.exit,
@@ -24,22 +25,20 @@ class Console:
         self._is_run: bool = False
         self._prefix_input: str = '>>> '
 
-
     def run(self) -> None:
         self._is_run = True
         while self._is_run:
             user_input = input(self._prefix_input)
-            command: Optional[function] = self._COMMANDS.get(user_input)
+            command: Optional[Callable[..., None]] = self._COMMANDS.get(user_input)
             if command is None:
                 print(f'Unknown command: {user_input}')
             else:
                 command()
 
-
     def help(self) -> None:
-        unknow_commands = []
+        unknow_commands: List[str] = []
         for command_name in self._COMMANDS:
-            help_message = self._COMMANDS_HELP.get(command_name)
+            help_message: Optional[str] = self._COMMANDS_HELP.get(command_name)
             if help_message:
                 print(f'{command_name} — {help_message}')
             else:
@@ -48,13 +47,11 @@ class Console:
         if unknow_commands:
             print('Unknow commands:', *unknow_commands)
 
-
     def exit(self) -> None:
         if self._server.is_run():
             self._server.stop()
             print('Server was stopped')
         self._is_run = False
-
 
     def server_start(self) -> None:
         if self._server.is_run():
@@ -63,14 +60,12 @@ class Console:
             self._server.run()
             print(f'Server was started on address: {self._server.get_address()}')
 
-
     def server_stop(self) -> None:
         if self._server.is_run():
             self._server.stop()
             print('Server was stopped')
         else:
             print('Server already was stopped')
-
 
     def server_status(self) -> None:
         if self._server.is_run():

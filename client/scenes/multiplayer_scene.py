@@ -21,7 +21,7 @@ class GameStatus:
     END = 3
 
 
-class SingleplayerScene(Scene):
+class MultiplayerScene(Scene):
     def __init__(self) -> None:
         super().__init__()
         self.snake: SnakeActor = SnakeActor(Vector2(20, 20))
