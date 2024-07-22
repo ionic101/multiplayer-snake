@@ -12,6 +12,7 @@ import viewers.menu_viewer as menu_viewer
 import controllers.menu_controller as menu_controller
 import os
 import pickle
+from game_engine.online_session import OnlineSession
 
 
 class GameStatus:
@@ -24,6 +25,8 @@ class GameStatus:
 class MultiplayerScene(Scene):
     def __init__(self) -> None:
         super().__init__()
+        self.online_session: OnlineSession = OnlineSession()
+        
         self.snake: SnakeActor = SnakeActor(Vector2(20, 20))
         self.apples: List[Vector2] = []
         self.move_time: float = 0.0
@@ -49,6 +52,7 @@ class MultiplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='continue',
+                text_size=20,
                 callback=self.continue_game
             ),
             ButtonActor(
@@ -59,6 +63,7 @@ class MultiplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
+                text_size=20,
                 callback=self.quit
             ),
         ]
@@ -71,6 +76,7 @@ class MultiplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='restart',
+                text_size=20,
                 callback=self.restart_game
             ),
             ButtonActor(
@@ -81,6 +87,7 @@ class MultiplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
+                text_size=20,
                 callback=self.quit
             ),
         ]

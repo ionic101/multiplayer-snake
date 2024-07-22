@@ -38,8 +38,8 @@ class GameEngine():
         self.is_run = False
     
     def update(self, dt: float) -> None:
-        self._session.control(pygame.event.get())
         self._session.update(dt)
+        self._session.control(pygame.event.get())
         self._session.display(self._screen)
         pygame.display.flip()
     
@@ -53,9 +53,10 @@ class GameEngine():
 
     def set_session(self, scene_type: Type[Scene] = BaseScene, viewer_type: Type[Viewer] = BaseViewer,
                     controller_type: Type[Controller] = BaseController) -> None:
-        self._session.set_scene(scene_type)
-        self._session.set_viewer(viewer_type)
-        self._session.set_controller(controller_type)
+        scene = scene_type()
+        viewer = viewer_type(scene)
+        controller = controller_type(scene)
+        self._session = Session(scene, controller, viewer)
     
     @staticmethod
     def stop_forced() -> None:

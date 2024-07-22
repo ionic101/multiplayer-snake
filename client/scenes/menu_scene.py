@@ -7,9 +7,9 @@ from game_engine.game_engine import GameEngine
 from scenes.singleplayer_scene import SingleplayerScene
 from viewers.singleplayer_viewer import SingleplayerViewer
 from controllers.singleplayer_controller import SingleplayerController
-from scenes.multiplayer_scene import MultiplayerScene
-from viewers.multiplayer_viewer import MultiplayerViewer
-from controllers.multiplayer_controller import MultiplayerController
+from scenes.server_searcher_scene import ServerSearcherScene
+from viewers.server_searcher_viewer import ServerSearcherViewer
+from controllers.server_searcher_controller import ServerSearcherController
 
 
 
@@ -29,6 +29,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='singleplayer',
+                text_size=26,
                 callback=self.play_singleplayer
             ),
             ButtonActor(
@@ -39,6 +40,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='multiplayer',
+                text_size=26,
                 callback=self.play_multiplayer
             ),
             ButtonActor(
@@ -49,6 +51,7 @@ class MenuScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
+                text_size=26,
                 callback=GameEngine.stop_forced
             ),
         ]
@@ -57,7 +60,7 @@ class MenuScene(Scene):
         GameEngine.set_session_forced(SingleplayerScene, SingleplayerViewer, SingleplayerController)
     
     def play_multiplayer(self) -> None:
-        GameEngine.set_session_forced(MultiplayerScene, MultiplayerViewer, MultiplayerController)
+        GameEngine.set_session_forced(ServerSearcherScene, ServerSearcherViewer, ServerSearcherController)
     
     def update(self, dt: float) -> None:
         pass

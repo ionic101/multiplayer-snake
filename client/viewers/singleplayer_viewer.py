@@ -5,7 +5,7 @@ from game_engine.colors import Colors
 from scenes.singleplayer_scene import SingleplayerScene, GameStatus
 import game_settings as settings
 from viewers.apples_viewer import ApplesViewer
-from classes.button_actor import ButtonActor
+from viewers.button_viewer import ButtonViewer
 
 
 class SingleplayerViewer(Viewer):
@@ -43,16 +43,6 @@ class SingleplayerViewer(Viewer):
                                         settings.CELL_WIDTH,
                                         settings.CELL_WIDTH))
     
-    def __display_button(self, screen: pygame.Surface, button: ButtonActor) -> None:
-        pygame.draw.rect(screen, Colors.WHITE.value, button.rect, width=5)
-        text: pygame.Surface = self._button_font.render(button.text, True, Colors.WHITE.value)
-        text_width: int
-        text_height: int
-        text_width, text_height = text.get_rect().size
-        text_coord = (button.coord.x + (button.width - text_width) // 2,
-                      button.coord.y + (button.height - text_height) // 2)
-        screen.blit(text, text_coord)
-    
     def __display_score(self, screen: pygame.Surface) -> None:
         if not isinstance(self._scene, SingleplayerScene):
             return
@@ -86,7 +76,7 @@ class SingleplayerViewer(Viewer):
         ApplesViewer.display(screen, self._scene.apples)
 
         for button in self._scene.buttons:
-            self.__display_button(screen, button)
+            ButtonViewer.display(screen, button)
 
         if self._scene.game_status == GameStatus.END:
             self.__display_title(screen, 'GAME OVER')

@@ -49,6 +49,7 @@ class SingleplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='continue',
+                text_size=20,
                 callback=self.continue_game
             ),
             ButtonActor(
@@ -59,6 +60,7 @@ class SingleplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
+                text_size=20,
                 callback=self.quit
             ),
         ]
@@ -71,6 +73,7 @@ class SingleplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='restart',
+                text_size=20,
                 callback=self.restart_game
             ),
             ButtonActor(
@@ -81,6 +84,7 @@ class SingleplayerScene(Scene):
                     self._BUTTON_HEIGHT
                 ),
                 text='quit',
+                text_size=20,
                 callback=self.quit
             ),
         ]
