@@ -77,6 +77,7 @@ class ServerSearcherScene(Scene):
     def connect(self) -> None:
         address: str = self.ip_text_box.text
         if not OnlineSession.is_address_valid(address):
+            print('Invalid address')
             return
         
         self.online_session.set_address(address)

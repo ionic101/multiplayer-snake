@@ -25,6 +25,7 @@ class GameEngine():
             return
         pygame.init()
         pygame.display.set_caption(settings.GAME_NAME)
+        pygame.display.set_icon(pygame.image.load(settings.ICON_PATH))
         self._screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         self._clock = pygame.time.Clock()
         scene = scene_type()
