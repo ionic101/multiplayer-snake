@@ -9,11 +9,15 @@ import scenes.menu_scene as menu_scene
 import viewers.menu_viewer as menu_viewer
 import controllers.menu_controller as menu_controller
 from game_engine.game_engine import GameEngine
+from game_engine.online_session import OnlineSession
 
 
 class ServerSearcherScene(Scene):
     def __init__(self) -> None:
         super().__init__()
+
+        self.online_session: OnlineSession = OnlineSession()
+
         self.TEXT_BOX_WIDTH: int = 500
         self.TEXT_BOX_HEIGHT: int = 70
         self.BUTTON_WIDTH: int = 210
@@ -71,8 +75,13 @@ class ServerSearcherScene(Scene):
         return 'snake' + str(randint(1000, 9999))
 
     def connect(self) -> None:
+        address: str = self.ip_text_box.text
+        if not OnlineSession.is_address_valid(address):
+            return
+        
+        self.online_session.set_address(address)
         print('nickname', self.nickname_text_box.text)
-        print('ip', self.ip_text_box.text)
+        print('ip', address)
     
     def back_to_menu(self) -> None:
         GameEngine.set_session_forced(menu_scene.MenuScene, menu_viewer.MenuViewer, menu_controller.MenuController)
