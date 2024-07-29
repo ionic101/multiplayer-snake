@@ -17,6 +17,7 @@ class ServerSearcherScene(Scene):
         super().__init__()
 
         self.online_session: OnlineSession = OnlineSession()
+        self.is_connecting: bool = False
 
         self.TEXT_BOX_WIDTH: int = 500
         self.TEXT_BOX_HEIGHT: int = 70
@@ -75,17 +76,26 @@ class ServerSearcherScene(Scene):
         return 'snake' + str(randint(1000, 9999))
 
     def connect(self) -> None:
+        nickname: str = self.nickname_text_box.text
         address: str = self.ip_text_box.text
         if not OnlineSession.is_address_valid(address):
             print('Invalid address')
             return
         
         self.online_session.set_address(address)
-        print('nickname', self.nickname_text_box.text)
-        print('ip', address)
+        self.online_session.send({
+            'type': 'connect',
+            'nickname': nickname
+        })
+        self.is_connecting = True
     
     def back_to_menu(self) -> None:
         GameEngine.set_session_forced(menu_scene.MenuScene, menu_viewer.MenuViewer, menu_controller.MenuController)
     
     def update(self, dt: float) -> None:
-        pass
+        if not self.is_connecting:
+            return
+        
+        data = self.online_session.get()
+        if data:
+            print(data)

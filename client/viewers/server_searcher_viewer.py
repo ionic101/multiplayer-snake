@@ -47,13 +47,14 @@ class ServerSearcherViewer(Viewer):
         if not isinstance(self._scene, server_searcher_scene.ServerSearcherScene):
             return
         
-        self.__display_ip(screen)
-        self.__display_nickname(screen)
-        
-        for text_box in self._scene.text_boxes:
-            TextBoxViewer.display(screen, text_box)
+        if not self._scene.is_connecting:
+            self.__display_ip(screen)
+            self.__display_nickname(screen)
+            
+            for text_box in self._scene.text_boxes:
+                TextBoxViewer.display(screen, text_box)
 
-        for button in self._scene.buttons:
-            ButtonViewer.display(screen, button)
+            for button in self._scene.buttons:
+                ButtonViewer.display(screen, button)
         
         

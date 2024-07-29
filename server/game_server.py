@@ -1,13 +1,22 @@
 import socket
 import threading
-from typing import Optional
+from typing import Optional, Dict, Any
 import json
 import time
 
 
 class Player:
-    def __init__(self, address: tuple[str, int]):
-        self.address = address
+    def __init__(self, address: tuple[str, int], connection: socket.socket):
+        self.address: tuple[str, int] = address
+        self.connection: socket.socket = connection
+    
+    def connect(self, status: bool = True) -> None:
+        data: Dict[str, Any] = {
+            'type': 'connect',
+            'status': status,
+            'message': ''
+        }
+        self.connection.sendto(json.dumps(data).encode(), self.address)
 
 
 class GameServer:
@@ -23,12 +32,15 @@ class GameServer:
         self._socket.bind((self.ip, self.port))
 
     def __parse_request(self, request: bytes, address: tuple[str, int]) -> None:
+        assert self._socket is not None, 'Socket is not init'
+        
         data = json.loads(request.decode())
-        print(address)
+        print(data)
 
-        if data['command'] == 'connect':
-            player: Player = Player(address)
+        if data['type'] == 'connect':
+            player: Player = Player(address, self._socket)
             self._players[address] = player
+            player.connect()
 
     def __listen(self) -> None:
         while self.is_run():
