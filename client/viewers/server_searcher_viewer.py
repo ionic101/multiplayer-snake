@@ -34,6 +34,12 @@ class ServerSearcherViewer(Viewer):
         text_coord = (settings.SCREEN_WIDTH // 2 - text_width // 2, 190)
         screen.blit(rendered_text, text_coord)
     
+    def __display_status(self, screen: pygame.Surface) -> None:
+        rendered_text: pygame.Surface = self._title_font.render('CONNECTING...', True, Colors.WHITE.value)
+        text_width: int = rendered_text.get_rect().width
+        text_coord = (settings.SCREEN_WIDTH // 2 - text_width // 2, 300)
+        screen.blit(rendered_text, text_coord)
+    
     def __display_field(self, screen: pygame.Surface) -> None:
         pygame.draw.rect(screen,
                          Colors.WHITE.value,
@@ -47,14 +53,14 @@ class ServerSearcherViewer(Viewer):
         if not isinstance(self._scene, server_searcher_scene.ServerSearcherScene):
             return
         
+        for button in self._scene.buttons:
+            ButtonViewer.display(screen, button)
+        
         if not self._scene.is_connecting:
             self.__display_ip(screen)
             self.__display_nickname(screen)
             
             for text_box in self._scene.text_boxes:
                 TextBoxViewer.display(screen, text_box)
-
-            for button in self._scene.buttons:
-                ButtonViewer.display(screen, button)
-        
-        
+        else:
+            self.__display_status(screen)
